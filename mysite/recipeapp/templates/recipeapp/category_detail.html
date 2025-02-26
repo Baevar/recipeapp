@@ -1,0 +1,51 @@
+{% extends "recipeapp/base.html" %}
+
+{% block title %}
+    Category {{ recipe.pk }}
+{% endblock  %}
+    {% block header %}
+        Категория "{{ category.title }}"
+    {% endblock header%}
+{% block body %}
+<div class="recipe_detail_table">
+    <div class="recipe_detail_style">
+        <div> <h4 class="subheading">Описание:</h4>  
+            {% if category.description %}
+                <p>{{ category.description }}</p>
+            {% else %}
+                <p>Не указано.</p>
+            {% endif %}
+        </div>
+        
+        <div> <h4 class="subheading">Автор:</h4>
+            <p>{{ category.author }}</p>
+    
+        </div>
+    
+        <div><h4 class="subheading">Список рецептов:</h4>
+            {% if category.recipes.all %}
+            <ul>
+                {% for recipe in category.recipes.all %}
+                <li><p><a href="{% url "recipeapp:recipe_detail" pk=recipe.pk %}">{{ recipe.title }}</a></p></li>
+                {% endfor %}
+            </ul>
+            {% else %}
+                Не указано.
+            {% endif %}
+        </div>    
+    
+        <div>
+            <p><a href="{% url 'recipeapp:category_list' %}">Назад к списку категорий </a></p>
+        </div>
+        <div>
+            {% if category.author.pk == current_user %}
+                <p><a href="{% url 'recipeapp:category_update' pk=category.pk %}">Редактировать категорию</a></p>
+                <p><a href="{% url 'recipeapp:category_delete' pk=category.pk %}">Удалить категорию</a></p>
+            {% endif %}
+            
+        </div>
+    </div>
+</div>
+{% endblock  %}
+
+

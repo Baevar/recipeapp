@@ -1,0 +1,41 @@
+{% extends "recipeapp/base.html" %}
+
+{% block title %}
+    Category list
+{% endblock  %}
+    {% block header %}
+        Категории рецептов
+    {% endblock header%}
+{% block body %}
+    {% if categories %}
+        <div class="category_table">
+            {% for category in categories %}
+                <div class="category_style border">
+                    <h4 class="subheading">
+                        <a href="{% url "recipeapp:category_detail" pk=category.pk %}">Название: {{category.title}}</a>
+                    </h4>
+                    <p>Описание: {{category.description}}</p>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="pagination pagination_form">
+            
+            {% if page_obj.has_previous %}
+                <a href="?page=1">В начало</a>
+                <a href="?page={{ page_obj.previous_page_number }}">Назад</a>
+            {% endif %}
+                    
+            
+        
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Вперед</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">В конец</a>
+            {% endif %}
+    </div>
+    <div class="center">
+        <p>Страниц: {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</p>
+    </div>
+    {% else %}
+        <h3>Категории отсутствуют!</h3>
+    {% endif %}
+{% endblock  %}

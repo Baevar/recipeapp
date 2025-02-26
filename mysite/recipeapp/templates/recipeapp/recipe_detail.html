@@ -1,0 +1,86 @@
+{% extends "recipeapp/base.html" %}
+{% load static %}
+{% block title %}
+    Recipe {{ recipe.pk }}
+{% endblock  %}
+
+    {% block header %}
+        Рецепт "{{ recipe.title }}"
+    {% endblock header%}
+
+
+{% block body %}
+<div class="recipe_detail_table">
+    <div class="image_detail_style">
+        {% if recipe.preview_image %}
+            <img src="{{ recipe.preview_image.url }}" alt="recipe.preview_image.name">
+        {% else %}
+            <img src="{% static "media/default_img.png" %}" alt="def_img">
+        {% endif %}
+    </div>
+        <div class="recipe_detail_style"> 
+            <div>
+                <h4 class="subheading">Описание:</h4> 
+            {% if recipe.description %}
+                <p>{{ recipe.description }}</p> 
+            {% else %}
+                <p>Описание не предоставлено</p> 
+            {% endif %}
+            </div>
+    
+            <div>
+                <h4 class="subheading">Шаги приготовления:</h4> 
+            {% if recipe.step %}
+                <p>{{ recipe.step }}</p> 
+            {% else %}
+                <p>Описание не предоставлено</p> 
+            {% endif %}
+            </div>
+    
+    
+            <div>
+                <h4 class="subheading">Автор:</h4> 
+                <p>{{ recipe.author }}</p> 
+            </div>
+    
+            <div>
+                <h4 class="subheading">Время приготовления: </h4> 
+                {% if recipe.time_limit %}
+                    <p>{{recipe.time_limit}} мин.</p>
+                {% else %}
+                    <p>Не указано.</p>
+                {% endif %} 
+            </div>
+    
+            <div>
+                <h4 class="subheading">Дата создания:</h4>  
+            <p>{{ recipe.created_at }}</p>
+            </div> 
+        
+    
+            <div><h4 class="subheading">Добавлен в категории:</h4>
+                {% if recipe.categories.all %}
+                    <ul>
+                        {% for category in recipe.categories.all %}
+                            <li><p><a href="{% url "recipeapp:category_detail" pk=category.pk %}">{{ category.title }}</a></p></li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>Отсутствует в категориях</p>
+                {% endif %}
+            </div>
+        </div>    
+    <div>
+        <p><a href="{% url 'recipeapp:recipe_list' %}">Назад к списку рецептов </a></p>
+    </div>
+    <div>
+        {% if recipe.author.pk == current_user %}
+            <p><a href="{% url 'recipeapp:recipe_update' pk=recipe.pk %}">Редактировать Рецепт</a></p>
+            <p><a href="{% url 'recipeapp:recipe_delete' pk=recipe.pk %}">Удалить Рецепт</a></p>
+        {% endif %}
+    </div>
+</div>
+ 
+ 
+{% endblock  %}
+

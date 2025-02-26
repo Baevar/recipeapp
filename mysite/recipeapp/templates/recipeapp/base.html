@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'CSS/styles.css' %}">
+    <title class="title_center">{% block title %}Base Title{% endblock %}</title>
+    
+  </head>
+  <body>
+    <header class="header">
+      <a href="{% url "recipeapp:recipe_index" %}">Главная страница</a>
+      <a href="{% url "recipeapp:recipe_list" %}">Рецепты</a>
+      <a href="{% url "recipeapp:category_list" %}">Категории</a>
+      <a href="{% url "recipeapp:create_recipe" %}">Создать рецепт</a>
+      <a href="{% url "recipeapp:create_category" %}">Создать категорию</a>
+      {% if user.is_authenticated %}
+          <a href="{% url "myauth:logout" %}">Выйти</a>
+          <a href="{% url "myauth:edit_profile" %}">Мои данные</a>
+      {% else %}
+          <a href="{% url "myauth:register" %}">Регистрация</a>
+          <a href="{% url "myauth:login" %}">Войти</a>
+      {% endif %}
+    </header>
+        
+        <h1 class="heading_h1 center">
+            {% block header %} {% endblock header %} 
+        </h1> 
+       
+    {% block body %}
+                
+    {% endblock %}
+    {% block footer %}
+        <footer class="footer center">
+            <p>©Вкусные рецепты inc.</p>  
+        </footer>
+    {% endblock footer %}
+  </body>
+</html>

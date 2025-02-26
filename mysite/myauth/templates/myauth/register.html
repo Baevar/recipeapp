@@ -1,0 +1,39 @@
+{% extends 'recipeapp/base.html' %}
+
+    {% block title %}
+    Registration
+    {% endblock %}
+
+    {% block header %}
+        Регистрация
+    {% endblock header%}
+
+    {% block body %}
+    <div class="form_table">
+        <form class="form_style border" method="post">
+            {% csrf_token %}
+                <div>
+                    {% if form.errors %}
+                    <div>
+                             {% for field, errors in form.errors.items %}
+                                {% for error in errors %}
+                                    <h5 class="error">{{ error }}</h5>
+                                {% endfor %}
+                            {% endfor %}
+                    </div>
+                {% endif %}
+                </div>
+
+                <div><p>Придумайте имя</p> {{form.username}}</div>
+                <div><p>Придумайте пароль</p> {{form.password1}}</div>
+                <div><p>Подтвердите пароль</p> {{form.password2}}</div>
+                <div>
+                    <p>Ваш пароль не должен быть слишком похож на другие ваши персональные данные.</p>
+                    <p>Ваш пароль должен содержать не менее 8 символов.</p>
+                    <p>Ваш пароль не может быть обычным паролем.</p>
+                    <p>Ваш пароль не может быть полностью цифровым.</p>
+                </div>
+                <button type="submit" value="Register">Зарегистрировать</button>
+        </form>
+    </div>
+    {% endblock %}

@@ -1,0 +1,20 @@
+{% extends "recipeapp/base.html" %}
+
+{% block title %}
+    Create category
+{% endblock  %}
+    {% block header %}
+        Создайте вашу категорию 
+    {% endblock header%}
+{% block body %}
+
+    <div class="form_table">
+        <form class ="form_style border" method="POST">
+            {% csrf_token %}
+            <div><p>Категория</p> {{form.title}}</div>
+            <div><p>Описание категории </p> {{form.description}}</div>
+            <button type="submit">Создать</button>
+        </form>
+        <a href="{% url 'recipeapp:category_list' %}">Назад к списку категорий</a>
+    </div>
+{% endblock  %}

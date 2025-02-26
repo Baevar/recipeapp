@@ -1,0 +1,24 @@
+{% extends "recipeapp/base.html" %}
+
+{% block title %}
+Удалить категорию "{{category.title}}"
+{% endblock %}
+{% block header %}
+Вы уверены, что хотите удалить категорию "{{category.title}}"? 
+{% endblock header%}
+{% block body %}
+    
+    <div class="delete_form_table">
+        <div class="delete_form_style">
+            <div>
+                <a href="{% url 'recipeapp:category_detail' pk=category.pk %}">Назад к категориям</a>
+            </div>
+            
+                <form method="POST">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <button type="submit">Удалить</button>
+                </form>
+        </div>
+    </div>
+{% endblock %}

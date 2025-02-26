@@ -1,0 +1,36 @@
+{% extends "recipeapp/base.html" %}
+{% load static %}
+{% block title %}
+    Recipe
+{% endblock %}
+
+    {% block header %}
+        Добро пожаловать на сайт рецептов
+    {% endblock header%}
+
+{% block body %}
+    {% if recipes %}
+        <h3 class="heading_h3 center">Посмотрите наши рецепты:</h3>
+    
+    <div class="recipe_table">
+        {% for recipe in recipes %}
+            <div class="recipe_style">
+                <div>
+                    <p><a href="{% url "recipeapp:recipe_detail" pk=recipe.pk %}">Название: {{recipe.title}}</a></p>
+                <p>Описание: {{recipe.description_short}}</p>
+                </div>
+               <div>
+                {% if recipe.preview_image %}
+                <img src="{{ recipe.preview_image.url }}" alt="recipe.preview_image.name">
+                {% else %}
+                <img src="{% static "media/default_img.png" %}" alt="def_img">
+            {% endif %}
+               </div>
+            </div>
+        {% endfor %}
+        <div class="recipe_style more_recipe">
+            <a href="{% url "recipeapp:recipe_list" %}">Больше рецептов</a>
+        </div>
+    </div>
+    {% endif %}
+{% endblock  %}

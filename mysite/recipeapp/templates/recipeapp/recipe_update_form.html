@@ -1,0 +1,25 @@
+{% extends "recipeapp/base.html" %}
+
+{% block title %}
+    Update recipe
+{% endblock  %}
+
+    {% block header %}
+        Редактирование рецепта
+    {% endblock header%}
+
+{% block body %}
+
+    <div>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.as_p}}
+            
+            <button type="submit">Сохранить изменения</button>
+        </form>
+    </div>
+
+    <div>
+        <a href="{% url 'recipeapp:recipe_detail' pk=recipe.pk %}">Назад к "{{recipe.title}}"</a>
+    </div>
+{% endblock  %}

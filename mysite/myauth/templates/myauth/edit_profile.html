@@ -1,0 +1,53 @@
+{% extends 'recipeapp/base.html' %}
+
+{% block title %}edit profile{% endblock %}
+
+    {% block header %}
+        Редактирование профиля "{{ user }}"
+    {% endblock header%}
+
+{% block body %}
+
+<div class="form_table">
+  <div class="border width">
+      <form class="form_style" method="post">
+        {% csrf_token %}
+        
+            <div>
+                <p>Кратко о себе</p>
+                {{ profile_form.bio }}
+            </div>
+            <div>
+                <p>Имя</p>
+                {{ profile_form.first_name }}
+            </div>
+            <div>
+                <p>Фамилия</p>
+                {{ profile_form.last_name }}
+            </div>
+            <div>
+                <p>E-mail</p>
+                {{ profile_form.email }}
+            </div>
+        
+        <button type="submit" name="save_profile">Изменить Имя</button>
+      </form>
+  </div>
+  <div class="border width">
+    <h3 class="center">Изменить пароль</h3>
+    <form class="form_style" method="post">
+      {% csrf_token %}
+      <div><p>Старый пароль</p> {{password_form.old_password}}</div>
+      <div><p>Старый пароль</p> {{password_form.new_password1}}</div>
+      <div><p>Подтвердите пароль</p> {{password_form.new_password2}}</div>
+      <div>
+          <p>Ваш пароль не должен быть слишком похож на другие ваши персональные данные.</p>
+          <p>Ваш пароль должен содержать не менее 8 символов.</p>
+          <p>Ваш пароль не может быть обычным паролем.</p>
+          <p>Ваш пароль не может быть полностью цифровым.</p>
+      </div>
+      <button type="submit" name="change_password">Изменить пароль</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

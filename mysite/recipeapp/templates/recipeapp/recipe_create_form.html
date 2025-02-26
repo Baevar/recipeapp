@@ -1,0 +1,37 @@
+{% extends "recipeapp/base.html" %}
+
+{% block title %}
+    Create recipe
+{% endblock  %}
+
+    {% block header %}
+        Создание рецепта
+    {% endblock header%}
+
+{% block body %}
+    <div class="form_table">
+        <form class ="form_style border" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}            
+            <div><p>Рецепт</p> {{form.title}}</div>
+            <div><p>Описание рецепта</p> {{form.description}}</div>
+            <div><p>Шаги приготовления</p> {{form.step}}</div>
+            <div><p>Время приготовления, мин.</p> {{form.time_limit}}</div>
+            <div> <p>Выберите категории рецепта:</p>
+                {% for category in form.categories %}
+                    <div><p>{{category.tag }}
+                        {{category.choice_label}}</p></div>
+                {% endfor %}
+            </div>
+            <div>
+                <label class="custom_load_image">
+                    <p>Загрузите изображение</p>{{form.preview_image}}
+                </label>
+
+            </div>
+
+            <button type="submit">Создать</button>
+        </form>
+        <a href="{% url 'recipeapp:recipe_list' %}">Назад к списку рецептов</a>
+    </div>
+
+{% endblock  %}

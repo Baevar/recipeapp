@@ -1,0 +1,33 @@
+{% extends 'recipeapp/base.html' %}
+
+{% block title %}
+Login
+{% endblock %}
+
+    {% block header %}
+        Введите ваш логин и пароль
+    {% endblock header%}
+
+{% block body %}
+<div class="form_table">
+    <form class="form_style border" method="POST">
+
+        {% csrf_token %}
+    
+        {% if error %}
+        <p style="color:red">{{error}}</p>
+        {% endif %}
+    
+    
+        <p>
+            <label for="username">Пользователь:</label>
+            <input type="text" name="username" id="username" required>
+        </p>
+        <p>
+            <label for="password">Пароль:</label>
+            <input type="password" name="password" id="password" required>
+        </p>
+        <button type="submit">Войти</button>
+    </form>
+</div>
+{% endblock %}
